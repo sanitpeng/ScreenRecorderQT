@@ -304,8 +304,23 @@ void ScreenRecorder::initVideoSource() {
     if (avInputFmt == nullptr) {
         throw runtime_error{err_msg_baddevice_video};
     }
+
+    //使用命令看设备，by pengxu
+//    ffmpeg -f avfoundation -list_devices true -i ""
+
+//    [AVFoundation input device @ 0x7ff2aed20e80] AVFoundation video devices:
+//    [AVFoundation input device @ 0x7ff2aed20e80] [0] OBS Virtual Camera
+//    [AVFoundation input device @ 0x7ff2aed20e80] [1] FaceTime高清摄像头（内建）
+//    [AVFoundation input device @ 0x7ff2aed20e80] [2] Capture screen 0
+//    [AVFoundation input device @ 0x7ff2aed20e80] AVFoundation audio devices:
+//    [AVFoundation input device @ 0x7ff2aed20e80] [0] MacBook Pro麦克风
+//    [AVFoundation input device @ 0x7ff2aed20e80] [1] Background Music (UI Sounds)
+//    [AVFoundation input device @ 0x7ff2aed20e80] [2] Background Music
+
     //[video]:[audio]
-    if (int value = avformat_open_input(&avFmtCtx, "1:none", avInputFmt, &avRawOptions)) {
+
+//    if (int value = avformat_open_input(&avFmtCtx, "1:none", avInputFmt, &avRawOptions)) {
+    if (int value = avformat_open_input(&avFmtCtx, "2:none", avInputFmt, &avRawOptions)) {
         throw runtime_error{err_msg_baddevice_video};
     }
 #endif

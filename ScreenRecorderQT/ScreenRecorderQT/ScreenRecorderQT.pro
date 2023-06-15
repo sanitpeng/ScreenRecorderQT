@@ -46,11 +46,40 @@ win32:LIBS += -lpthread -lole32 -loleaut32
 
 win32: LIBS += -L$$PWD/../lib/ -lavcodec  -lavdevice -lavfilter -lavformat -lavutil -lpostproc -lswresample -lswscale
 
-unix:LIBS += -lavformat -lavcodec -lavutil -lavdevice -lm -lswscale -lX11 -lpthread -lswresample -lasound
+#unix:LIBS += -lavformat -lavcodec -lavutil -lavdevice -lm -lswscale -lX11 -lpthread -lswresample -lasound
 
 
 win32:INCLUDEPATH += $$PWD/../include
 win32:DEPENDPATH += $$PWD/../include
+
+
+
+macx {
+CONFIG += objc
+
+#    LIBS += -framework Cocoa -framework CoreFoundation -framework Foundation
+LIBS += -framework AudioToolbox -framework AudioUnit
+LIBS += -framework AVFoundation
+LIBS += -framework CoreMediaIO
+LIBS += -framework CoreAudio
+
+
+INCLUDEPATH += /usr/local/opt/ffmpeg/include
+
+LIBS    +=  /usr/local/opt/ffmpeg/lib/libavcodec.dylib \
+            /usr/local/opt/ffmpeg/lib/libavdevice.dylib \
+            /usr/local/opt/ffmpeg/lib/libavfilter.dylib \
+            /usr/local/opt/ffmpeg/lib/libavformat.dylib \
+            /usr/local/opt/ffmpeg/lib/libavutil.dylib \
+            /usr/local/opt/ffmpeg/lib/libpostproc.dylib \
+            /usr/local/opt/ffmpeg/lib/libswresample.dylib \
+            /usr/local/opt/ffmpeg/lib/libswscale.dylib
+
+    QMAKE_INFO_PLIST = Info.plist
+
+}
+
+
 
 target.path=/opt/ScreenRecorderQT
 target.files=ScreenRecorderQT
@@ -61,3 +90,6 @@ launcher.files = ../ScreenRecorderQT.desktop
 
 unix:INSTALLS += launcher icon
 unix:CONFIG += nostrip
+
+DISTFILES += \
+    Info.plist

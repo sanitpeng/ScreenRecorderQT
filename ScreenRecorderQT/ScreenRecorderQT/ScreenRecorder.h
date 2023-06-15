@@ -23,7 +23,7 @@ extern "C" {
 #include "unistd.h"
 #elif defined __APPLE__
 #include <ctime>
-#include <X11/Xlib.h>
+//#include <X11/Xlib.h>
 #include "unistd.h"
 #include <CoreGraphics/CGDisplayConfiguration.h>
 #endif
